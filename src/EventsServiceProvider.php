@@ -15,6 +15,7 @@ class EventsServiceProvider extends ServiceProvider
          * Optional methods to load your package assets
          */
         $this->loadRoutesFrom(__DIR__ . '/Routes/auth.php');
+        $this->loadRoutesFrom(__DIR__ . '/Routes/web.php');
 
         // Register migrations
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations/');

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('event_id');
             $table->string('name');
-            $table->text('google_maps_url');
+            $table->text('google_maps_url')->nullable();
             $table->timestamps();
 
             $table->index('event_id');
