@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { router } from '@inertiajs/react';
+import { router, Head } from '@inertiajs/react';
 
 export default function Admin({ event, dateScores, locationScores, topDates, topLocations, adminHash }) {
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
@@ -31,6 +31,7 @@ export default function Admin({ event, dateScores, locationScores, topDates, top
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4 py-8">
+            <Head title={`Results: ${event.title}`} />
             <div className="max-w-4xl mx-auto">
                 <div className="flex justify-end mb-4">
                     <a

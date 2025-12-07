@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { router } from '@inertiajs/react';
+import { router, Head } from '@inertiajs/react';
 import axios from 'axios';
 
 export default function Create() {
@@ -63,7 +63,7 @@ export default function Create() {
         }
 
         try {
-            const response = await axios.post('/events', {
+            const response = await axios.post(route('events.store'), {
                 title,
                 description,
                 dates: filteredDates,
@@ -91,6 +91,7 @@ export default function Create() {
     if (result) {
         return (
             <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4 py-8">
+                <Head title="Event Created!" />
                 <div className="max-w-2xl mx-auto">
                     <div className="bg-white rounded-2xl shadow-xl p-8">
                         <div className="text-center mb-6">
@@ -155,6 +156,7 @@ export default function Create() {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4 py-8">
+            <Head title="Create Event" />
             <div className="max-w-3xl mx-auto">
                 <div className="bg-white rounded-2xl shadow-xl p-8">
                     <h1 className="text-3xl font-bold text-gray-900 mb-6">Create Event</h1>

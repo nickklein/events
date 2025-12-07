@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { router } from '@inertiajs/react';
+import { router, Head } from '@inertiajs/react';
 import axios from 'axios';
 
 export default function Vote({ event }) {
@@ -103,6 +103,7 @@ export default function Vote({ event }) {
     if (submitted) {
         return (
             <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+                <Head title="Thanks for voting!" />
                 <div className="max-w-md w-full">
                     <div className="flex justify-end mb-4">
                         <a
@@ -128,6 +129,7 @@ export default function Vote({ event }) {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4 py-8">
+            <Head title={`Vote: ${event.title}`} />
             <div className="max-w-2xl mx-auto">
                 <div className="flex justify-end mb-4">
                     <a

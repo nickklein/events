@@ -1,9 +1,10 @@
 import React from 'react';
-import { Link } from '@inertiajs/react';
+import { Link, Head } from '@inertiajs/react';
 
 export default function Index() {
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4 py-8">
+            <Head title="Event Planning - Plan Together" />
             <div className="max-w-5xl mx-auto">
                 <div className="flex items-center justify-between mb-8">
                     <h1 className="text-4xl font-bold text-gray-900">Events</h1>
