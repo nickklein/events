@@ -13,13 +13,7 @@ class EventsController extends Controller
 {
     public function index()
     {
-        $events = Event::with(['dates', 'locations', 'participants'])
-            ->latest()
-            ->get();
-
-        return Inertia::render('Events/Index', [
-            'events' => $events,
-        ]);
+        return Inertia::render('Events/Index');
     }
 
     public function create()
