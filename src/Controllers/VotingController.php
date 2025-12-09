@@ -3,12 +3,10 @@
 namespace NickKlein\Events\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 use NickKlein\Events\Models\Event;
-use NickKlein\Events\Models\EventParticipant;
-use NickKlein\Events\Models\EventDateVote;
-use NickKlein\Events\Models\EventLocationVote;
+use NickKlein\Events\Requests\StoreVoteRequest;
+use NickKlein\Events\Services\VoteService;
 
 class VotingController extends Controller
 {
@@ -51,7 +49,7 @@ class VotingController extends Controller
         ]);
     }
 
-    public function submitVote(Request $request, $hash)
+    public function submitVote(StoreVoteRequest $request, $hash, VoteService $voteService)
     {
         $event = Event::where('hash', $hash)->firstOrFail();
 
@@ -59,56 +57,8 @@ class VotingController extends Controller
             return response()->json(['error' => 'Event is closed'], 403);
         }
 
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'date_votes' => 'required|array',
-            'date_votes.*.event_date_id' => 'required|exists:event_dates,id',
-            'date_votes.*.rank' => 'required|integer|min:1|max:10',
-            'location_votes' => 'required|array',
-            'location_votes.*.event_location_id' => 'required|exists:event_locations,id',
-            'location_votes.*.rank' => 'required|integer|min:1|max:10',
-        ]);
-
-        // Validate date ranks are unique and sequential
-        $dateRanks = array_column($validated['date_votes'], 'rank');
-        sort($dateRanks);
-        $expectedDateRanks = range(1, count($dateRanks));
-        if ($dateRanks !== $expectedDateRanks) {
-            return response()->json([
-                'error' => 'Invalid date ranks - must be sequential starting at 1 with no duplicates or gaps'
-            ], 422);
-        }
-
-        // Validate location ranks are unique and sequential
-        $locationRanks = array_column($validated['location_votes'], 'rank');
-        sort($locationRanks);
-        $expectedLocationRanks = range(1, count($locationRanks));
-        if ($locationRanks !== $expectedLocationRanks) {
-            return response()->json([
-                'error' => 'Invalid location ranks - must be sequential starting at 1 with no duplicates or gaps'
-            ], 422);
-        }
-
-        $participant = EventParticipant::create([
-            'event_id' => $event->id,
-            'name' => $validated['name'],
-        ]);
-
-        foreach ($validated['date_votes'] as $vote) {
-            EventDateVote::create([
-                'participant_id' => $participant->id,
-                'event_date_id' => $vote['event_date_id'],
-                'rank' => $vote['rank'],
-            ]);
-        }
-
-        foreach ($validated['location_votes'] as $vote) {
-            EventLocationVote::create([
-                'participant_id' => $participant->id,
-                'event_location_id' => $vote['event_location_id'],
-                'rank' => $vote['rank'],
-            ]);
-        }
+        $validated = $request->validated();
+        $voteService->createVote($event, $validated);
 
         return response()->json([
             'success' => true,
