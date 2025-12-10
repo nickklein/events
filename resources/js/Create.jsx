@@ -142,7 +142,7 @@ export default function Create() {
                                 View Results
                             </a>
                             <a
-                                href="/events/create"
+                                href={route('events.create')}
                                 className="flex-1 py-3 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold rounded-lg text-center transition-colors"
                             >
                                 Create Another
@@ -263,10 +263,10 @@ export default function Create() {
                                         </div>
                                         <input
                                             type="url"
-                                            value={location.google_maps_url}
+                                            value={location.url}
                                             onChange={(e) => updateLocation(index, 'google_maps_url', e.target.value)}
                                             className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-blue-600 focus:outline-none"
-                                            placeholder="Google Maps URL (optional)"
+                                            placeholder="URL (optional)"
                                         />
                                     </div>
                                 ))}

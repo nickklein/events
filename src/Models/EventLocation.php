@@ -11,6 +11,7 @@ class EventLocation extends Model
         'event_id',
         'name',
         'google_maps_url',
+        'url',
     ];
 
     public function event()

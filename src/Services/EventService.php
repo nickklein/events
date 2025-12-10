@@ -34,7 +34,7 @@ class EventService
             EventLocation::create([
                 'event_id' => $event->id,
                 'name' => $locationData['name'],
-                'google_maps_url' => $locationData['google_maps_url'] ?? null,
+                'url' => $locationData['url'] ?? null,
             ]);
         }
 
@@ -110,7 +110,7 @@ class EventService
             return [
                 'id' => $location->id,
                 'name' => $location->name,
-                'google_maps_url' => $location->google_maps_url,
+                'url' => $location->url,
                 'score' => $location->score,
                 'votes' => $this->formatVotes($location->votes),
             ];

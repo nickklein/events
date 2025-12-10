@@ -6,6 +6,11 @@
             "NickKlein\\Events\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "NickKlein\\Events\\Tests\\": "tests"
+        }
+    },
     "authors": [
         {
             "name": "Nick Klein",

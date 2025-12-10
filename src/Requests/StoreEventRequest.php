@@ -41,7 +41,7 @@ class StoreEventRequest extends FormRequest
             'dates.*.datetime' => 'required|date|after:yesterday',
             'locations' => 'required|array|min:1',
             'locations.*.name' => 'required|string|max:255',
-            'locations.*.google_maps_url' => 'nullable|url',
+            'locations.*.url' => 'nullable|url',
             'expires_at' => 'nullable|date|after:yesterday',
         ];
     }
