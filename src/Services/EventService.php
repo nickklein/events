@@ -13,13 +13,15 @@ class EventService
      * Create a new event with associated dates and locations.
      *
      * @param array $validated Validated event data containing title, description, dates, locations, and expires_at
+     * @param string $visitorId The visitor ID of the user creating the event
      * @return Event The created event with loaded dates and locations relationships
      */
-    public function createEvent(array $validated): Event
+    public function createEvent(array $validated, string $visitorId): Event
     {
         $event = Event::create([
             'title' => $validated['title'],
             'description' => $validated['description'] ?? null,
+            'visitor_id' => $visitorId,
             'expires_at' => $validated['expires_at'] ?? null,
         ]);
 

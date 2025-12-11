@@ -6,12 +6,15 @@ use App\Http\Controllers\Controller;
 use Inertia\Inertia;
 use NickKlein\Events\Models\Event;
 use NickKlein\Events\Requests\StoreVoteRequest;
+use NickKlein\Events\Services\VisitorService;
 use NickKlein\Events\Services\VoteService;
 
 class VotingController extends Controller
 {
-    public function show($hash)
+    public function show($hash, VisitorService $visitorService)
     {
+        $visitorService->getOrCreateVisitorId();
+
         $event = Event::with(['dates', 'locations'])
             ->where('hash', $hash)
             ->firstOrFail();

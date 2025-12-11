@@ -12,6 +12,7 @@ class Event extends Model
         'description',
         'hash',
         'admin_hash',
+        'visitor_id',
         'status',
         'expires_at',
     ];
