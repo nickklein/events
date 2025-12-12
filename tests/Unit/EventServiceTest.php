@@ -33,8 +33,10 @@ class EventServiceTest extends TestCase
             ],
         ];
 
+        $visitorId = '2457-6724-5672-56-23458-23458-2345-23485-2384-523-45';
+
         // Act
-        $event = $this->eventService->createEvent($validated);
+        $event = $this->eventService->createEvent($validated, $visitorId);
 
         // Assert
         $this->assertInstanceOf(Event::class, $event);
@@ -58,31 +60,31 @@ class EventServiceTest extends TestCase
             'description' => 'This is a test event',
         ]);
     }
-    /**/
-    /*public function testCreateEventWithMinimalData()*/
-    /*{*/
-    /*    // Arrange*/
-    /*    $validated = [*/
-    /*        'title' => 'Minimal Event',*/
-    /*        'description' => null,*/
-    /*        'expires_at' => null,*/
-    /*        'dates' => [*/
-    /*            ['datetime' => now()->addDays(1)->toDateTimeString()],*/
-    /*        ],*/
-    /*        'locations' => [*/
-    /*            ['name' => 'Only Location', 'url' => null],*/
-    /*        ],*/
-    /*    ];*/
-    /**/
-    /*    // Act*/
-    /*    $event = $this->eventService->createEvent($validated);*/
-    /**/
-    /*    // Assert*/
-    /*    $this->assertInstanceOf(Event::class, $event);*/
-    /*    $this->assertEquals('Minimal Event', $event->title);*/
-    /*    $this->assertNull($event->description);*/
-    /*    $this->assertNull($event->expires_at);*/
-    /*    $this->assertCount(1, $event->dates);*/
-    /*    $this->assertCount(1, $event->locations);*/
-    /*}*/
+
+    public function testCreateEventWithMinimalData()
+    {
+        // Arrange
+        $validated = [
+            'title' => 'Minimal Event',
+            'description' => null,
+            'expires_at' => null,
+            'dates' => [
+                ['datetime' => now()->addDays(1)->toDateTimeString()],
+            ],
+            'locations' => [
+                ['name' => 'Only Location', 'url' => null],
+            ],
+        ];
+
+        $visitorId = '2457-6724-5672-56-23458-23458-2345-23485-2384-523-45';
+        $event = $this->eventService->createEvent($validated, $visitorId);
+
+        // Assert
+        $this->assertInstanceOf(Event::class, $event);
+        $this->assertEquals('Minimal Event', $event->title);
+        $this->assertNull($event->description);
+        $this->assertNull($event->expires_at);
+        $this->assertCount(1, $event->dates);
+        $this->assertCount(1, $event->locations);
+    }
 }

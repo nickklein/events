@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { router, Head } from '@inertiajs/react';
 import axios from 'axios';
 
-export default function Vote({ event }) {
+export default function Vote({ event, isEditing = false, existingName = '', existingDateVotes = {}, existingLocationVotes = {} }) {
     const [step, setStep] = useState(1);
-    const [dateVotes, setDateVotes] = useState({});
-    const [locationVotes, setLocationVotes] = useState({});
-    const [name, setName] = useState('');
+    const [dateVotes, setDateVotes] = useState(existingDateVotes);
+    const [locationVotes, setLocationVotes] = useState(existingLocationVotes);
+    const [name, setName] = useState(existingName);
     const [submitting, setSubmitting] = useState(false);
     const [submitted, setSubmitted] = useState(false);
 
@@ -79,7 +79,8 @@ export default function Vote({ event }) {
         setSubmitting(true);
 
         try {
-            await axios.post(`/event/${event.hash}/vote`, {
+            const method = isEditing ? 'put' : 'post';
+            await axios[method](`/event/${event.hash}/vote`, {
                 name: name.trim(),
                 date_votes: Object.entries(dateVotes).map(([event_date_id, rank]) => ({
                     event_date_id: parseInt(event_date_id),
@@ -93,8 +94,8 @@ export default function Vote({ event }) {
 
             setSubmitted(true);
         } catch (error) {
-            console.error('Error submitting vote:', error);
-            const errorMessage = error.response?.data?.error || error.response?.data?.message || error.message || 'Failed to submit vote';
+            console.error(`Error ${isEditing ? 'updating' : 'submitting'} vote:`, error);
+            const errorMessage = error.response?.data?.error || error.response?.data?.message || error.message || `Failed to ${isEditing ? 'update' : 'submit'} vote`;
             alert(errorMessage);
             setSubmitting(false);
         }
@@ -103,7 +104,7 @@ export default function Vote({ event }) {
     if (submitted) {
         return (
             <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
-                <Head title="Thanks for voting!" />
+                <Head title={isEditing ? "Vote Updated!" : "Thanks for voting!"} />
                 <div className="max-w-md w-full">
                     <div className="flex justify-end mb-4">
                         <a
@@ -119,8 +120,12 @@ export default function Vote({ event }) {
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
                         </div>
-                        <h2 className="text-2xl font-bold text-gray-900 mb-2">Thanks for voting!</h2>
-                        <p className="text-gray-600">Your preferences have been recorded.</p>
+                        <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                            {isEditing ? "Vote Updated!" : "Thanks for voting!"}
+                        </h2>
+                        <p className="text-gray-600">
+                            {isEditing ? "Your preferences have been updated." : "Your preferences have been recorded."}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -129,7 +134,7 @@ export default function Vote({ event }) {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4 py-8">
-            <Head title={`Vote: ${event.title}`} />
+            <Head title={`${isEditing ? 'Edit Vote' : 'Vote'}: ${event.title}`} />
             <div className="max-w-2xl mx-auto">
                 <div className="flex justify-end mb-4">
                     <a
@@ -141,7 +146,12 @@ export default function Vote({ event }) {
                 </div>
                 <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
                     <div className="bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-8 text-white">
-                        <h1 className="text-3xl font-bold mb-2">{event.title}</h1>
+                        <div className="flex items-center justify-between mb-2">
+                            <h1 className="text-3xl font-bold">{event.title}</h1>
+                            {isEditing && (
+                                <span className="text-sm bg-blue-500 px-3 py-1 rounded-full">Editing</span>
+                            )}
+                        </div>
                         {event.description && (
                             <p className="text-blue-100">{event.description}</p>
                         )}
@@ -184,6 +194,7 @@ export default function Vote({ event }) {
                                 onSubmit={handleSubmit}
                                 onBack={() => setStep(2)}
                                 submitting={submitting}
+                                isEditing={isEditing}
                             />
                         )}
                     </div>
@@ -325,12 +336,12 @@ function LocationStep({ locations, votes, onVote, onNext, onBack }) {
     );
 }
 
-function NameStep({ name, onNameChange, onSubmit, onBack, submitting }) {
+function NameStep({ name, onNameChange, onSubmit, onBack, submitting, isEditing = false }) {
     return (
         <div>
             <h2 className="text-2xl font-bold text-gray-900 mb-2">Almost done!</h2>
             <p className="text-gray-600 mb-6">
-                Enter your name so others know who voted.
+                {isEditing ? "Update your name if needed." : "Enter your name so others know who voted."}
             </p>
 
             <input
@@ -359,7 +370,7 @@ function NameStep({ name, onNameChange, onSubmit, onBack, submitting }) {
                             : 'bg-gray-300 cursor-not-allowed'
                     }`}
                 >
-                    {submitting ? 'Submitting...' : 'Submit Vote'}
+                    {submitting ? (isEditing ? 'Updating...' : 'Submitting...') : (isEditing ? 'Update Vote' : 'Submit Vote')}
                 </button>
             </div>
         </div>

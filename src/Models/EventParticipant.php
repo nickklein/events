@@ -9,6 +9,7 @@ class EventParticipant extends Model
     protected $fillable = [
         'event_id',
         'name',
+        'visitor_id',
     ];
 
     public function event()

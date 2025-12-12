@@ -15,6 +15,8 @@ Route::middleware(['web'])->group(function () {
     // Public voting
     Route::get('/event/{hash}', [VotingController::class, 'show'])->name('events.vote');
     Route::post('/event/{hash}/vote', [VotingController::class, 'submitVote'])->name('events.vote.submit');
+    Route::get('/event/{hash}/edit', [VotingController::class, 'edit'])->name('events.vote.edit');
+    Route::put('/event/{hash}/vote', [VotingController::class, 'update'])->name('events.vote.update');
 
     // Admin management (requires secret admin hash)
     Route::get('/event/admin/{adminHash}', [EventsController::class, 'admin'])->name('events.admin');

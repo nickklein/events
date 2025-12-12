@@ -23,15 +23,6 @@ class RankingService
             return $option->score === $topScore;
         })->values();
 
-        // If there's a tie, return all tied options
-        if ($topOptions->count() > 1) {
-            return [
-                'is_tie' => true,
-                'options' => $topOptions,
-                'score' => $topScore,
-            ];
-        }
-
         // Single winner
         return $topOptions->first();
     }
