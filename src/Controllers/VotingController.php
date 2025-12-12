@@ -29,7 +29,23 @@ class VotingController extends Controller
         // Check if user already voted
         $existingParticipant = $voteService->findExistingParticipant($event, $visitorId);
         if ($existingParticipant) {
-            return redirect()->route('events.vote.edit', ['hash' => $hash]);
+            // Format existing votes for summary display
+            $existingDateVotes = [];
+            foreach ($existingParticipant->dateVotes as $vote) {
+                $existingDateVotes[$vote->event_date_id] = $vote->rank;
+            }
+
+            $existingLocationVotes = [];
+            foreach ($existingParticipant->locationVotes as $vote) {
+                $existingLocationVotes[$vote->event_location_id] = $vote->rank;
+            }
+
+            return Inertia::render('Events/Summary', [
+                'event' => EventResource::make($event)->resolve(),
+                'existingName' => $existingParticipant->name,
+                'existingDateVotes' => $existingDateVotes,
+                'existingLocationVotes' => $existingLocationVotes,
+            ]);
         }
 
         return Inertia::render('Events/Vote', [

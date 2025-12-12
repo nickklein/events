@@ -71,12 +71,13 @@ class VoteServiceTest extends TestCase
         ];
 
         // Act
-        $this->voteService->createVote($this->event, $validated);
+        $this->voteService->createVote($this->event, $validated, 'test_visitor_id_1');
 
         // Assert participant was created
         $this->assertDatabaseHas('event_participants', [
             'event_id' => $this->event->id,
             'name' => 'John Doe',
+            'visitor_id' => 'test_visitor_id_1',
         ]);
 
         $participant = EventParticipant::where('event_id', $this->event->id)
@@ -130,7 +131,7 @@ class VoteServiceTest extends TestCase
         ];
 
         // Act
-        $this->voteService->createVote($this->event, $validated);
+        $this->voteService->createVote($this->event, $validated, 'test_visitor_id_2');
 
         // Assert
         $participant = EventParticipant::where('name', 'Jane Smith')->first();
@@ -149,7 +150,7 @@ class VoteServiceTest extends TestCase
         ];
 
         // Act
-        $this->voteService->createVote($this->event, $validated);
+        $this->voteService->createVote($this->event, $validated, 'test_visitor_id_3');
 
         // Assert - participant is created but no votes
         $participant = EventParticipant::where('name', 'Bob Johnson')->first();
@@ -182,8 +183,8 @@ class VoteServiceTest extends TestCase
         ];
 
         // Act
-        $this->voteService->createVote($this->event, $validated1);
-        $this->voteService->createVote($this->event, $validated2);
+        $this->voteService->createVote($this->event, $validated1, 'test_visitor_id_4');
+        $this->voteService->createVote($this->event, $validated2, 'test_visitor_id_5');
 
         // Assert
         $this->assertEquals(2, EventParticipant::where('event_id', $this->event->id)->count());
