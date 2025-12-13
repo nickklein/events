@@ -92,7 +92,8 @@ export default function Vote({ event, isEditing = false, existingName = '', exis
                 })),
             });
 
-            setSubmitted(true);
+            // Redirect to the summary page
+            router.visit(route('events.vote', { hash: event.hash }));
         } catch (error) {
             console.error(`Error ${isEditing ? 'updating' : 'submitting'} vote:`, error);
             const errorMessage = error.response?.data?.error || error.response?.data?.message || error.message || `Failed to ${isEditing ? 'update' : 'submit'} vote`;

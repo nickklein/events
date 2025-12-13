@@ -14,11 +14,13 @@ class Event extends Model
         'admin_hash',
         'visitor_id',
         'status',
+        'show_results',
         'expires_at',
     ];
 
     protected $casts = [
         'expires_at' => 'datetime',
+        'show_results' => 'boolean',
     ];
 
     protected static function boot()

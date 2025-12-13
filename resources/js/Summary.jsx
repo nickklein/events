@@ -34,10 +34,21 @@ export default function Summary({ event, existingName, existingDateVotes, existi
                     </div>
 
                     <div className="p-6">
+                        {/* Success Message */}
+                        <div className="mb-8 text-center">
+                            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                </svg>
+                            </div>
+                            <h2 className="text-2xl font-bold text-gray-900 mb-2">Thanks for voting!</h2>
+                            <p className="text-gray-600 mb-6">Your preferences have been recorded.</p>
+                        </div>
+
                         <div className="mb-8">
-                            <h2 className="text-2xl font-bold text-gray-900 mb-2">Your Vote</h2>
+                            <h3 className="text-xl font-bold text-gray-900 mb-2">Your Vote</h3>
                             <p className="text-gray-600 mb-4">
-                                Thanks for voting, <span className="font-semibold">{existingName}</span>! Here's what you selected:
+                                Here's what you selected, <span className="font-semibold">{existingName}</span>:
                             </p>
                         </div>
 
