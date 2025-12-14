@@ -90,60 +90,60 @@ export default function Create() {
 
     if (result) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4 py-8">
+            <div className="min-h-screen bg-gray-50 p-4 py-12">
                 <Head title="Event Created!" />
                 <div className="max-w-2xl mx-auto">
-                    <div className="bg-white rounded-2xl shadow-xl p-8">
-                        <div className="text-center mb-6">
-                            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-10">
+                        <div className="text-center mb-8">
+                            <div className="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                                <svg className="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                 </svg>
                             </div>
-                            <h2 className="text-2xl font-bold text-gray-900 mb-2">Event Created!</h2>
-                            <p className="text-gray-600">Share these links with your friends</p>
+                            <h2 className="text-3xl font-bold text-gray-900 mb-2">Event Created!</h2>
+                            <p className="text-gray-500">Share these links with your friends</p>
                         </div>
 
                         <div className="space-y-4">
-                            <div className="p-4 bg-blue-50 rounded-lg">
-                                <div className="font-semibold text-gray-700 mb-2">Public Voting Link</div>
-                                <div className="text-sm text-gray-600 break-all mb-2">{result.public_url}</div>
+                            <div className="p-5 bg-gray-50 rounded-xl border border-gray-200">
+                                <div className="font-semibold text-gray-900 mb-2">Public Voting Link</div>
+                                <div className="text-sm text-gray-600 break-all mb-3">{result.public_url}</div>
                                 <button
                                     onClick={() => {
                                         navigator.clipboard.writeText(result.public_url);
                                         alert('Copied!');
                                     }}
-                                    className="text-blue-600 hover:text-blue-700 text-sm font-semibold"
+                                    className="px-4 py-2 bg-gray-900 hover:bg-gray-800 text-white text-sm font-medium rounded-lg transition-colors"
                                 >
                                     Copy Link
                                 </button>
                             </div>
 
-                            <div className="p-4 bg-amber-50 rounded-lg border-2 border-amber-200">
-                                <div className="font-semibold text-gray-700 mb-2">Admin Link (Keep Secret!)</div>
-                                <div className="text-sm text-gray-600 break-all mb-2">{result.admin_url}</div>
+                            <div className="p-5 bg-amber-50 rounded-xl border border-amber-200">
+                                <div className="font-semibold text-gray-900 mb-2">Admin Link (Keep Secret!)</div>
+                                <div className="text-sm text-gray-600 break-all mb-3">{result.admin_url}</div>
                                 <button
                                     onClick={() => {
                                         navigator.clipboard.writeText(result.admin_url);
                                         alert('Copied!');
                                     }}
-                                    className="text-amber-600 hover:text-amber-700 text-sm font-semibold"
+                                    className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white text-sm font-medium rounded-lg transition-colors"
                                 >
                                     Copy Link
                                 </button>
                             </div>
                         </div>
 
-                        <div className="mt-6 flex gap-3">
+                        <div className="mt-8 flex gap-3">
                             <a
                                 href={result.admin_url}
-                                className="flex-1 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg text-center transition-colors"
+                                className="flex-1 py-3 bg-gray-900 hover:bg-gray-800 text-white font-semibold rounded-xl text-center transition-colors"
                             >
                                 View Results
                             </a>
                             <a
                                 href={route('events.create')}
-                                className="flex-1 py-3 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold rounded-lg text-center transition-colors"
+                                className="flex-1 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl text-center transition-colors"
                             >
                                 Create Another
                             </a>
@@ -155,11 +155,11 @@ export default function Create() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4 py-8">
+        <div className="min-h-screen bg-gray-50 p-4 py-12">
             <Head title="Create Event" />
             <div className="max-w-3xl mx-auto">
-                <div className="bg-white rounded-2xl shadow-xl p-8">
-                    <h1 className="text-3xl font-bold text-gray-900 mb-6">Create Event</h1>
+                <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
+                    <h1 className="text-3xl font-bold text-gray-900 mb-8">Create Event</h1>
 
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div>
@@ -171,7 +171,7 @@ export default function Create() {
                                 value={title}
                                 onChange={(e) => setTitle(e.target.value)}
                                 required
-                                className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-blue-600 focus:outline-none"
+                                className="w-full p-3 border-2 border-gray-200 rounded-xl focus:border-gray-900 focus:outline-none transition-all"
                                 placeholder="Weekend Hangout"
                             />
                         </div>
@@ -184,7 +184,7 @@ export default function Create() {
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
                                 rows={3}
-                                className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-blue-600 focus:outline-none"
+                                className="w-full p-3 border-2 border-gray-200 rounded-xl focus:border-gray-900 focus:outline-none transition-all"
                                 placeholder="Let's get together this weekend!"
                             />
                         </div>
@@ -195,26 +195,26 @@ export default function Create() {
                             </label>
                             <div className="space-y-3">
                                 {dates.map((date, index) => (
-                                    <div key={index} className="flex gap-3 items-start">
+                                    <div key={index} className="flex gap-2 items-start">
                                         <input
                                             type="date"
                                             value={date.date}
                                             onChange={(e) => updateDate(index, 'date', e.target.value)}
                                             required
-                                            className="flex-1 p-3 border-2 border-gray-200 rounded-lg focus:border-blue-600 focus:outline-none"
+                                            className="flex-1 p-3 border-2 border-gray-200 rounded-xl focus:border-gray-900 focus:outline-none transition-all"
                                         />
                                         <input
                                             type="time"
                                             value={date.time}
                                             onChange={(e) => updateDate(index, 'time', e.target.value)}
                                             placeholder="Time (optional)"
-                                            className="w-36 p-3 border-2 border-gray-200 rounded-lg focus:border-blue-600 focus:outline-none"
+                                            className="w-36 p-3 border-2 border-gray-200 rounded-xl focus:border-gray-900 focus:outline-none transition-all"
                                         />
                                         {dates.length > 1 && (
                                             <button
                                                 type="button"
                                                 onClick={() => removeDate(index)}
-                                                className="p-3 text-red-600 hover:bg-red-50 rounded-lg"
+                                                className="p-3 text-red-600 hover:bg-red-50 rounded-xl transition-all"
                                             >
                                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -227,7 +227,7 @@ export default function Create() {
                             <button
                                 type="button"
                                 onClick={addDate}
-                                className="mt-3 text-blue-600 hover:text-blue-700 font-semibold text-sm"
+                                className="mt-3 text-gray-600 hover:text-gray-900 font-medium text-sm"
                             >
                                 + Add Date
                             </button>
@@ -239,21 +239,21 @@ export default function Create() {
                             </label>
                             <div className="space-y-3">
                                 {locations.map((location, index) => (
-                                    <div key={index} className="p-4 border-2 border-gray-200 rounded-lg">
-                                        <div className="flex gap-3 mb-3">
+                                    <div key={index} className="p-4 border-2 border-gray-200 rounded-xl bg-gray-50">
+                                        <div className="flex gap-2 mb-3">
                                             <input
                                                 type="text"
                                                 value={location.name}
                                                 onChange={(e) => updateLocation(index, 'name', e.target.value)}
                                                 required
-                                                className="flex-1 p-3 border-2 border-gray-200 rounded-lg focus:border-blue-600 focus:outline-none"
+                                                className="flex-1 p-3 border-2 border-gray-200 rounded-xl focus:border-gray-900 focus:outline-none transition-all bg-white"
                                                 placeholder="Location name (e.g., Joe's Pizza)"
                                             />
                                             {locations.length > 1 && (
                                                 <button
                                                     type="button"
                                                     onClick={() => removeLocation(index)}
-                                                    className="p-3 text-red-600 hover:bg-red-50 rounded-lg"
+                                                    className="p-3 text-red-600 hover:bg-red-50 rounded-xl transition-all"
                                                 >
                                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -265,7 +265,7 @@ export default function Create() {
                                             type="url"
                                             value={location.url}
                                             onChange={(e) => updateLocation(index, 'google_maps_url', e.target.value)}
-                                            className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-blue-600 focus:outline-none"
+                                            className="w-full p-3 border-2 border-gray-200 rounded-xl focus:border-gray-900 focus:outline-none transition-all bg-white"
                                             placeholder="URL (optional)"
                                         />
                                     </div>
@@ -274,7 +274,7 @@ export default function Create() {
                             <button
                                 type="button"
                                 onClick={addLocation}
-                                className="mt-3 text-blue-600 hover:text-blue-700 font-semibold text-sm"
+                                className="mt-3 text-gray-600 hover:text-gray-900 font-medium text-sm"
                             >
                                 + Add Location
                             </button>
@@ -288,17 +288,17 @@ export default function Create() {
                                 type="datetime-local"
                                 value={expiresAt}
                                 onChange={(e) => setExpiresAt(e.target.value)}
-                                className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-blue-600 focus:outline-none"
+                                className="w-full p-3 border-2 border-gray-200 rounded-xl focus:border-gray-900 focus:outline-none transition-all"
                             />
                         </div>
 
                         <button
                             type="submit"
                             disabled={submitting}
-                            className={`w-full py-4 rounded-xl font-semibold text-white transition-all ${
+                            className={`w-full py-3 rounded-xl font-semibold text-white transition-all ${
                                 submitting
                                     ? 'bg-gray-300 cursor-not-allowed'
-                                    : 'bg-blue-600 hover:bg-blue-700'
+                                    : 'bg-gray-900 hover:bg-gray-800'
                             }`}
                         >
                             {submitting ? 'Creating...' : 'Create Event'}

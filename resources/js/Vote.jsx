@@ -104,27 +104,27 @@ export default function Vote({ event, isEditing = false, existingName = '', exis
 
     if (submitted) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+            <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
                 <Head title={isEditing ? "Vote Updated!" : "Thanks for voting!"} />
                 <div className="max-w-md w-full">
                     <div className="flex justify-end mb-4">
                         <a
                             href="/events/create"
-                            className="text-blue-600 hover:text-blue-800 font-semibold underline"
+                            className="text-gray-600 hover:text-gray-900 font-medium underline"
                         >
                             Create your event
                         </a>
                     </div>
-                    <div className="bg-white rounded-2xl shadow-xl p-8 text-center">
-                        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-10 text-center">
+                        <div className="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <svg className="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
                         </div>
                         <h2 className="text-2xl font-bold text-gray-900 mb-2">
                             {isEditing ? "Vote Updated!" : "Thanks for voting!"}
                         </h2>
-                        <p className="text-gray-600">
+                        <p className="text-gray-500">
                             {isEditing ? "Your preferences have been updated." : "Your preferences have been recorded."}
                         </p>
                     </div>
@@ -134,71 +134,69 @@ export default function Vote({ event, isEditing = false, existingName = '', exis
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4 py-8">
+        <div className="min-h-screen bg-gray-50 p-4 py-12">
             <Head title={`${isEditing ? 'Edit Vote' : 'Vote'}: ${event.title}`} />
             <div className="max-w-2xl mx-auto">
                 <div className="flex justify-end mb-4">
                     <a
                         href="/events/create"
-                        className="text-blue-600 hover:text-blue-800 font-semibold underline"
+                        className="text-gray-600 hover:text-gray-900 font-medium underline"
                     >
                         Create your event
                     </a>
                 </div>
-                <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-                    <div className="bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-8 text-white">
-                        <div className="flex items-center justify-between mb-2">
-                            <h1 className="text-3xl font-bold">{event.title}</h1>
+                <div className="bg-white rounded-2xl shadow-sm border border-gray-200">
+                    <div className="px-8 py-8 border-b border-gray-200">
+                        <div className="flex items-center justify-between mb-3">
+                            <h1 className="text-3xl font-bold text-gray-900">{event.title}</h1>
                             {isEditing && (
-                                <span className="text-sm bg-blue-500 px-3 py-1 rounded-full">Editing</span>
+                                <span className="text-sm bg-gray-100 px-3 py-1.5 rounded-lg font-semibold text-gray-700">Editing</span>
                             )}
                         </div>
                         {event.description && (
-                            <p className="text-blue-100">{event.description}</p>
+                            <p className="text-gray-500 text-base">{event.description}</p>
                         )}
                         <div className="flex gap-2 mt-6">
                             {[1, 2, 3].map((s) => (
                                 <div
                                     key={s}
-                                    className={`flex-1 h-1 rounded-full ${
-                                        s <= step ? 'bg-white' : 'bg-blue-400'
+                                    className={`flex-1 h-1.5 rounded-full transition-all duration-300 ${
+                                        s <= step ? 'bg-gray-900' : 'bg-gray-200'
                                     }`}
                                 />
                             ))}
                         </div>
                     </div>
 
-                    <div className="p-6">
-                        {step === 1 && (
-                            <DateStep
-                                dates={event.dates}
-                                votes={dateVotes}
-                                onVote={handleDateClick}
-                                onNext={() => setStep(2)}
-                            />
-                        )}
+                    {step === 1 && (
+                        <DateStep
+                            dates={event.dates}
+                            votes={dateVotes}
+                            onVote={handleDateClick}
+                            onNext={() => setStep(2)}
+                        />
+                    )}
 
-                        {step === 2 && (
-                            <LocationStep
-                                locations={event.locations}
-                                votes={locationVotes}
-                                onVote={handleLocationClick}
-                                onNext={() => setStep(3)}
-                                onBack={() => setStep(1)}
-                            />
-                        )}
+                    {step === 2 && (
+                        <LocationStep
+                            locations={event.locations}
+                            votes={locationVotes}
+                            onVote={handleLocationClick}
+                            onNext={() => setStep(3)}
+                            onBack={() => setStep(1)}
+                        />
+                    )}
 
-                        {step === 3 && (
-                            <NameStep
-                                name={name}
-                                onNameChange={setName}
-                                onSubmit={handleSubmit}
-                                onBack={() => setStep(2)}
-                                submitting={submitting}
-                                isEditing={isEditing}
-                            />
-                        )}
-                    </div>
+                    {step === 3 && (
+                        <NameStep
+                            name={name}
+                            onNameChange={setName}
+                            onSubmit={handleSubmit}
+                            onBack={() => setStep(2)}
+                            submitting={submitting}
+                            isEditing={isEditing}
+                        />
+                    )}
                 </div>
             </div>
         </div>
@@ -209,9 +207,9 @@ function DateStep({ dates, votes, onVote, onNext }) {
     const hasVotes = Object.keys(votes).length > 0;
 
     return (
-        <div>
+        <div className="p-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-2">When works for you?</h2>
-            <p className="text-gray-600 mb-6">
+            <p className="text-gray-500 mb-6">
                 Tap to select. Tap again to rank (1st, 2nd, 3rd...). Tap once more to remove.
             </p>
 
@@ -226,7 +224,7 @@ function DateStep({ dates, votes, onVote, onNext }) {
                             onClick={() => onVote(date.id)}
                             className={`w-full p-4 rounded-xl border-2 text-left transition-all ${
                                 isSelected
-                                    ? 'border-blue-600 bg-blue-50'
+                                    ? 'border-gray-900 bg-gray-50'
                                     : 'border-gray-200 hover:border-gray-300 bg-white'
                             }`}
                         >
@@ -234,11 +232,11 @@ function DateStep({ dates, votes, onVote, onNext }) {
                                 <div>
                                     <div className="font-semibold text-gray-900">{date.display}</div>
                                     {date.time_end && (
-                                        <div className="text-sm text-gray-500">Until {date.time_end}</div>
+                                        <div className="text-sm text-gray-500 mt-0.5">Until {date.time_end}</div>
                                     )}
                                 </div>
                                 {isSelected && (
-                                    <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">
+                                    <div className="w-8 h-8 rounded-lg bg-gray-900 text-white flex items-center justify-center font-bold text-sm">
                                         {rank}
                                     </div>
                                 )}
@@ -251,9 +249,9 @@ function DateStep({ dates, votes, onVote, onNext }) {
             <button
                 onClick={onNext}
                 disabled={!hasVotes}
-                className={`w-full py-4 rounded-xl font-semibold text-white transition-all ${
+                className={`w-full py-3 rounded-xl font-semibold text-white transition-all ${
                     hasVotes
-                        ? 'bg-blue-600 hover:bg-blue-700'
+                        ? 'bg-gray-900 hover:bg-gray-800'
                         : 'bg-gray-300 cursor-not-allowed'
                 }`}
             >
@@ -267,9 +265,9 @@ function LocationStep({ locations, votes, onVote, onNext, onBack }) {
     const hasVotes = Object.keys(votes).length > 0;
 
     return (
-        <div>
+        <div className="p-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-2">Where should we meet?</h2>
-            <p className="text-gray-600 mb-6">
+            <p className="text-gray-500 mb-6">
                 Select your preferred venues or activities.
             </p>
 
@@ -284,7 +282,7 @@ function LocationStep({ locations, votes, onVote, onNext, onBack }) {
                             onClick={() => onVote(location.id)}
                             className={`w-full p-4 rounded-xl border-2 text-left transition-all ${
                                 isSelected
-                                    ? 'border-blue-600 bg-blue-50'
+                                    ? 'border-gray-900 bg-gray-50'
                                     : 'border-gray-200 hover:border-gray-300 bg-white'
                             }`}
                         >
@@ -296,7 +294,7 @@ function LocationStep({ locations, votes, onVote, onNext, onBack }) {
                                             href={location.google_maps_url}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="text-sm text-blue-600 hover:text-blue-700"
+                                            className="text-sm text-gray-600 hover:text-gray-900 font-medium mt-0.5 inline-block"
                                             onClick={(e) => e.stopPropagation()}
                                         >
                                             View on Maps
@@ -304,7 +302,7 @@ function LocationStep({ locations, votes, onVote, onNext, onBack }) {
                                     )}
                                 </div>
                                 {isSelected && (
-                                    <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold ml-4">
+                                    <div className="w-8 h-8 rounded-lg bg-gray-900 text-white flex items-center justify-center font-bold text-sm ml-4">
                                         {rank}
                                     </div>
                                 )}
@@ -317,16 +315,16 @@ function LocationStep({ locations, votes, onVote, onNext, onBack }) {
             <div className="flex gap-3">
                 <button
                     onClick={onBack}
-                    className="flex-1 py-4 rounded-xl font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200"
+                    className="flex-1 py-3 rounded-xl font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 transition-all"
                 >
                     Back
                 </button>
                 <button
                     onClick={onNext}
                     disabled={!hasVotes}
-                    className={`flex-1 py-4 rounded-xl font-semibold text-white transition-all ${
+                    className={`flex-1 py-3 rounded-xl font-semibold text-white transition-all ${
                         hasVotes
-                            ? 'bg-blue-600 hover:bg-blue-700'
+                            ? 'bg-gray-900 hover:bg-gray-800'
                             : 'bg-gray-300 cursor-not-allowed'
                     }`}
                 >
@@ -339,9 +337,9 @@ function LocationStep({ locations, votes, onVote, onNext, onBack }) {
 
 function NameStep({ name, onNameChange, onSubmit, onBack, submitting, isEditing = false }) {
     return (
-        <div>
+        <div className="p-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-2">Almost done!</h2>
-            <p className="text-gray-600 mb-6">
+            <p className="text-gray-500 mb-6">
                 {isEditing ? "Update your name if needed." : "Enter your name so others know who voted."}
             </p>
 
@@ -350,7 +348,7 @@ function NameStep({ name, onNameChange, onSubmit, onBack, submitting, isEditing 
                 value={name}
                 onChange={(e) => onNameChange(e.target.value)}
                 placeholder="Your name"
-                className="w-full p-4 rounded-xl border-2 border-gray-200 focus:border-blue-600 focus:outline-none mb-8 text-lg"
+                className="w-full p-4 rounded-xl border-2 border-gray-200 focus:border-gray-900 focus:outline-none mb-8 transition-all"
                 autoFocus
             />
 
@@ -358,16 +356,16 @@ function NameStep({ name, onNameChange, onSubmit, onBack, submitting, isEditing 
                 <button
                     onClick={onBack}
                     disabled={submitting}
-                    className="flex-1 py-4 rounded-xl font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 disabled:opacity-50"
+                    className="flex-1 py-3 rounded-xl font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 disabled:opacity-50 transition-all"
                 >
                     Back
                 </button>
                 <button
                     onClick={onSubmit}
                     disabled={!name.trim() || submitting}
-                    className={`flex-1 py-4 rounded-xl font-semibold text-white transition-all ${
+                    className={`flex-1 py-3 rounded-xl font-semibold text-white transition-all ${
                         name.trim() && !submitting
-                            ? 'bg-green-600 hover:bg-green-700'
+                            ? 'bg-emerald-600 hover:bg-emerald-700'
                             : 'bg-gray-300 cursor-not-allowed'
                     }`}
                 >

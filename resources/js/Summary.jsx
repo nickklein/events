@@ -14,54 +14,54 @@ export default function Summary({ event, existingName, existingDateVotes, existi
         .sort((a, b) => a.rank - b.rank);
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4 py-8">
+        <div className="min-h-screen bg-gray-50 p-4 py-12">
             <Head title={`Your Vote: ${event.title}`} />
             <div className="max-w-2xl mx-auto">
                 <div className="flex justify-end mb-4">
                     <a
                         href="/events/create"
-                        className="text-blue-600 hover:text-blue-800 font-semibold underline"
+                        className="text-gray-600 hover:text-gray-900 font-medium underline"
                     >
                         Create your event
                     </a>
                 </div>
-                <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-                    <div className="bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-8 text-white">
-                        <h1 className="text-3xl font-bold mb-2">{event.title}</h1>
+                <div className="bg-white rounded-2xl shadow-sm border border-gray-200">
+                    <div className="px-8 py-8 border-b border-gray-200">
+                        <h1 className="text-3xl font-bold text-gray-900 mb-2">{event.title}</h1>
                         {event.description && (
-                            <p className="text-blue-100">{event.description}</p>
+                            <p className="text-gray-500">{event.description}</p>
                         )}
                     </div>
 
-                    <div className="p-6">
+                    <div className="p-8">
                         {/* Success Message */}
                         <div className="mb-8 text-center">
-                            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div className="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                                <svg className="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                 </svg>
                             </div>
                             <h2 className="text-2xl font-bold text-gray-900 mb-2">Thanks for voting!</h2>
-                            <p className="text-gray-600 mb-6">Your preferences have been recorded.</p>
+                            <p className="text-gray-500 mb-6">Your preferences have been recorded.</p>
                         </div>
 
                         <div className="mb-8">
-                            <h3 className="text-xl font-bold text-gray-900 mb-2">Your Vote</h3>
-                            <p className="text-gray-600 mb-4">
-                                Here's what you selected, <span className="font-semibold">{existingName}</span>:
+                            <h3 className="text-lg font-bold text-gray-900 mb-2">Your Vote</h3>
+                            <p className="text-gray-600 mb-6">
+                                Here's what you selected, <span className="font-semibold text-gray-900">{existingName}</span>:
                             </p>
                         </div>
 
                         <div className="mb-8">
-                            <h3 className="text-lg font-semibold text-gray-900 mb-3">Your Date Preferences</h3>
+                            <h3 className="text-base font-bold text-gray-900 mb-3">Your Date Preferences</h3>
                             <div className="space-y-2">
                                 {sortedDateVotes.map((date) => (
                                     <div
                                         key={date.id}
-                                        className="flex items-center justify-between p-4 rounded-xl bg-gray-100 border border-gray-200"
+                                        className="flex items-center justify-between p-4 rounded-xl bg-gray-50 border border-gray-200"
                                     >
-                                        <div className="text-gray-700">{date.display}</div>
-                                        <div className="w-8 h-8 rounded-full bg-gray-400 text-white flex items-center justify-center font-bold text-sm">
+                                        <div className="text-gray-900 font-medium">{date.display}</div>
+                                        <div className="w-8 h-8 rounded-lg bg-gray-900 text-white flex items-center justify-center font-bold text-sm">
                                             {date.rank}
                                         </div>
                                     </div>
@@ -70,27 +70,27 @@ export default function Summary({ event, existingName, existingDateVotes, existi
                         </div>
 
                         <div className="mb-8">
-                            <h3 className="text-lg font-semibold text-gray-900 mb-3">Your Location Preferences</h3>
+                            <h3 className="text-base font-bold text-gray-900 mb-3">Your Location Preferences</h3>
                             <div className="space-y-2">
                                 {sortedLocationVotes.map((location) => (
                                     <div
                                         key={location.id}
-                                        className="flex items-center justify-between p-4 rounded-xl bg-gray-100 border border-gray-200"
+                                        className="flex items-center justify-between p-4 rounded-xl bg-gray-50 border border-gray-200"
                                     >
                                         <div>
-                                            <div className="text-gray-700">{location.name}</div>
+                                            <div className="text-gray-900 font-medium">{location.name}</div>
                                             {location.google_maps_url && (
                                                 <a
                                                     href={location.google_maps_url}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className="text-sm text-blue-600 hover:text-blue-700"
+                                                    className="text-sm text-gray-600 hover:text-gray-900 font-medium mt-0.5 inline-block"
                                                 >
                                                     View on Maps
                                                 </a>
                                             )}
                                         </div>
-                                        <div className="w-8 h-8 rounded-full bg-gray-400 text-white flex items-center justify-center font-bold text-sm">
+                                        <div className="w-8 h-8 rounded-lg bg-gray-900 text-white flex items-center justify-center font-bold text-sm ml-4">
                                             {location.rank}
                                         </div>
                                     </div>
@@ -100,7 +100,7 @@ export default function Summary({ event, existingName, existingDateVotes, existi
 
                         <a
                             href={`/event/${event.hash}/edit`}
-                            className="block w-full py-4 rounded-xl font-semibold text-white bg-blue-600 hover:bg-blue-700 text-center transition-all"
+                            className="block w-full py-3 rounded-xl font-semibold text-white bg-gray-900 hover:bg-gray-800 text-center transition-colors"
                         >
                             Edit Your Vote
                         </a>
